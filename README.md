@@ -89,7 +89,7 @@ git push origin minha-feature
 ```
 Abra um pull request.
 
-Referências
+## Referências
 Documentação do Express
 Documentação do Bcrypt
 Documentação do JWT
