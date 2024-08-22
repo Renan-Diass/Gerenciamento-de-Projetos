@@ -23,7 +23,7 @@ Siga os passos abaixo para configurar o ambiente:
 Navegue até o diretório do projeto:
 
 ```bash
-cd gerenciamentodeprojetos
+cd .\Gerenciamento-de-Projetos\
 ```
 Instale as dependências:
 
