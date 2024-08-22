@@ -45,7 +45,7 @@ Criar um projeto:
 
 bash
 ```
-POST /api/projects
+POST /api/v1/projects
 {
   "name": "Novo Projeto",
   "description": "Descrição do projeto"
@@ -54,8 +54,7 @@ POST /api/projects
 Adicionar uma tarefa:
 
 ```bash
-Copiar código
-POST /api/tasks
+POST /api/v1/tasks
 {
   "title": "Nova Tarefa",
   "description": "Descrição da tarefa",
