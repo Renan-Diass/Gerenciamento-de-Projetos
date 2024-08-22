@@ -81,7 +81,7 @@ git checkout -b minha-feature
 Faça commit das suas alterações:
 
 ```bash
-git commit -am 'Adiciona nova feature'
+git commit -m 'Adiciona nova feature'
 ```
 Envie para o repositório remoto:
 ```bash
