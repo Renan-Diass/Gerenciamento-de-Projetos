@@ -43,8 +43,8 @@ npm start
 Exemplos de Requisições
 Criar um projeto:
 
-bash
-```
+
+```bash
 POST /api/v1/projects
 {
   "name": "Novo Projeto",
