@@ -1,0 +1,51 @@
+import Header from './components/Header'
+import Footer from './components/Footer'
+import RickAndMortyApi from './pages/RickAndMortyApi'
+import Home from './pages/Home'
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login'
+import { AuthProvider } from './auth/Context'
+import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
+import Character from './pages/Character';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from './routes/PrivateRoute';
+import Task from './pages/Task';
+import Project from './pages/Project';
+
+// 6 - Adicionar AuthProvider e PrivateRoute
+function App() {
+  return (
+    <AuthProvider>
+      <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/api" element={<RickAndMortyApi />} />
+            <Route path="/character" element={<Character />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path='/project' element={<Project/>} />
+            <Route path="/task" element={<Task />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: '50%' }}
+      />
+      <Footer />
+    </AuthProvider>
+  )
+}
+
+export default App
