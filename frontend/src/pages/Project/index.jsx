@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect }  from "react";
 import { toast } from "react-toastify";
 import { createProject, deleteProject, getProjects } from "../../api/project";
 import './styles.css'; // Importando o arquivo de estilos

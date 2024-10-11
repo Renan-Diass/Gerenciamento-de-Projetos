@@ -11,6 +11,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import Task from './pages/Task';
 import Project from './pages/Project';
 import 'react-toastify/dist/ReactToastify.css';
+import React from 'react';
 
 function App() {
   return (

@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import './styles.css'
-import {jwtDecode} from 'jwt-decode';
+import React from 'react';
 
 export default function Home() {
   return (

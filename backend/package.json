@@ -7,7 +7,7 @@
     "start": "nodemon ./src/index.js",
     "test": "jest --coverage"
   },
-  "author": "Ruhan, Renan, Guilherme e Ana",
+  "author": "Ruhan e Renan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

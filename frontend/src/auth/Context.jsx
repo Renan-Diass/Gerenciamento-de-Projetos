@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-// 4 - Adicionar Provider, isTokenValid e getRole
+import React from 'react';
+
 const isTokenValid = (token) => {
   try {
     const decoded = jwtDecode(token);

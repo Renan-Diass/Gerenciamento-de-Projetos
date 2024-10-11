@@ -5,6 +5,7 @@ import './styles.css'
 import { AuthContext } from '../../auth/Context';
 import { useContext } from 'react';
 import LogoutButton from '../Logout';
+import React from 'react';
 
 export default function Header(){
     const { token } = useContext(AuthContext);

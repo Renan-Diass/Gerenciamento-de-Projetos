@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import React,{ useContext,useState } from 'react';
 import './styles.css'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../auth/Context';
 import { loginUser } from '../../api/user';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 
 export default function Login() {
   const { login } = useContext(AuthContext);
