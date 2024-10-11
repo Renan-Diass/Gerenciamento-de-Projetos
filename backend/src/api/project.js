@@ -1,16 +1,25 @@
 const ProjectController = require('../controller/project');
+const jwt = require('jsonwebtoken');
+const xss = require('xss');
+const JWT_SECRET_KEY = 'batata';
 
 class ProjectApi {
     async createProject(req, res) {
-        console.log('AAA')
-        const { name, description, autorId } = req.body;
+        const { name, description } = req.body;
+        const token = req.headers.authorization;
+
+        const payload = jwt.verify(token, JWT_SECRET_KEY);
+        const autorId = payload.id;
 
         if (!name || !description || !autorId) {
             return res.status(400).send({ error: 'Name, description, and authorId are required.' });
         }
 
+        const sanitizedName = xss(name);
+        const sanitizedDescription = xss(description);
+
         try {
-            const project = await ProjectController.createProjects(name, description, autorId);
+            const project = await ProjectController.createProjects(sanitizedName, sanitizedDescription, autorId);
             return res.status(201).send(project);
         } catch (e) {
             return res.status(400).send({ error: `Error when creating a project: ${e.message}` });
@@ -21,14 +30,16 @@ class ProjectApi {
         const { id } = req.params;
         const { name, description, autorId } = req.body;
 
-        // Validação simples
         if (!name || !description) {
             return res.status(400).send({ error: 'Name and description are required.' });
         }
 
+        const sanitizedName = xss(name);
+        const sanitizedDescription = xss(description);
+
         try {
-            const project = await ProjectController.updateProjects(Number(id), name, description, autorId);
-            return res.status(200).send(project); // Status 200 para atualização
+            const project = await ProjectController.updateProjects(Number(id), sanitizedName, sanitizedDescription, autorId);
+            return res.status(200).send(project);
         } catch (e) {
             return res.status(400).send({ error: `Error when updating project: ${e.message}` });
         }

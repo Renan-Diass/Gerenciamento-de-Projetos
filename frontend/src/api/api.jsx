@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 // 2 - Adicionar Axios e criar uma instância do Axios
 const api = axios.create({

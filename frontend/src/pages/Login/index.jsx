@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './styles.css'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../auth/Context';
@@ -28,25 +28,15 @@ export default function Login() {
         return toast('Informe o e-mail e a password para continuar!');
     }
 
-    try {
-        // 7 - Usar Axios para fazer a requisição de login
-        const response = await loginUser(email, password);
-        if (response.token) {
-            // 8 - Adicionar login ao AuthContext
-            login(response.token);
-            const csfrToken =  await axios.get('http://localhost:3000/csrf-token', { withCredentials: true });
-            localStorage.setItem('csrfToken', csfrToken.data.csrfToken);
-            return navigate('/');
-        }
+    try{
+      const response = await loginUser(email, password);
+      if (response.token) {
+        login(response.token);
+        return navigate('/');
+      }
     } catch (error) {
-        if (error.response.status === 403) {
-          return toast("Sem permissão.");
-        }
-        if (error.response.status === 401 || error.response.status === 404) {
-          return toast('Email ou password inválido, tente novamente!');
-        }
-        return toast('Erro inesperado, tente novamente mais tarde!');
-    }
+      return toast('Email ou password inválido, tente novamente!');
+  }
   };
 
   return (

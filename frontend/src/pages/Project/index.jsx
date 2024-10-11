@@ -1,20 +1,21 @@
-import { jwtDecode } from "jwt-decode"
-import { useState } from "react"
-import { toast } from "react-toastify"
-import { createProject } from "../../api/project"
-import { useCookies } from "react-cookie"
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { createProject, deleteProject, getProjects } from "../../api/project";
+import './styles.css'; // Importando o arquivo de estilos
 
 export default function Project() {
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [autorId, setAutorId] = useState('')
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [projects, setProjects] = useState([]);
+    const buscarProjetos = async () => {
+        const response = await getProjects();
+        setProjects(response);
+    };
 
-    const [projects, setProjects] = useState([])
+    useEffect(() => {
 
-    //const [cookies] = useCookies(['_csrf']);
-    //const cookieValue = cookies['_csrf'];
-
-    const cookieValue = localStorage.getItem('token')
+        buscarProjetos();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,67 +25,62 @@ export default function Project() {
         }
 
         try {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const decoded = jwtDecode(token);
-                setAutorId(decoded.id);
+            const response = await createProject({ name, description });
+            if (!response) {
+                return toast('Error creating project!');
             }
-            
-            const response = await createProject({name, description, autorId});
             setProjects([...projects, response]);
             setName('');
             setDescription('');
-            setAutorId('');
         } catch (error) {
-            console.log(error)
-            if (error.response === 403) {
+            if (error.response?.status === 403) {
                 return toast("Sem permissão.");
             }
-            if (error.response === 401 || error.response === 404) {
-                return toast('Email ou password inválido, tente novamente!');
-            }
-            console.log(error)
             return toast('Erro inesperado, tente novamente mais tarde!');
         }
-    }
+    };
 
+    const handleDeleteProject = async (id) => {
+        const respone = await deleteProject(id);
+        if (!respone) {
+            return toast('Error deleting project!');
+        }
+        buscarProjetos();
+
+    };
 
     return (
         <div className="project-container">
-            <h1>Project</h1>
-            <div className="project-form">
+            <h1>Project Management</h1>
+            <form className="project-form" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
+                    placeholder="Project Name"
+                    required
                 />
                 <input
                     type="text"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description"
+                    placeholder="Project Description"
+                    required
                 />
-                <input
-                    type="text"
-                    value={autorId}
-                    onChange={(e) => setAutorId(e.target.value)}
-                    placeholder="AutorId"
-                />
-                <button onClick={handleSubmit}>Add</button>
-            </div>
+                <button type="submit">Add Project</button>
+            </form>
             <ul className="project-list">
                 {projects.map((project) => (
-                    <li key={project.id}>
-                        <span>{project.name}</span>
-                        <span>{project.description}</span>
-                        <span>{project.autorId}</span>
-                        <div>
-                            <button onClick={() => handleDeleteProject(project.id)}>Delete</button>
+                    <li key={project.id} className="project-item">
+                        <div className="project-details">
+                            <span className="project-name">{project.name}</span>
+                            <span className="project-description">{project.description}</span>
+                            <span className="project-author">Author ID: {project.autorId}</span>
                         </div>
+                        <button className="delete-button" onClick={() => handleDeleteProject(project.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
         </div>
-    )
+    );
 }

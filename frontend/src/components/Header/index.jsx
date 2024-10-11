@@ -32,12 +32,12 @@ export default function Header(){
                         <Link to="/">
                             <li>Home</li>
                         </Link>
-                        { token && <Link to="/api">
-                            <li>Rick And Morty API</li>
+                        { token && <Link to="/project">
+                            <li>Projetos</li>
                         </Link> }
-                        {/* { token && <Link to="/profile">
-                            <li>Favoritos</li>
-                        </Link> } */}
+                        { token && <Link to="/task">
+                            <li>Tarefas</li>
+                        </Link> }
                         { token && <Link to="/profile">
                             <li>Seu Perfil</li>
                         </Link> }

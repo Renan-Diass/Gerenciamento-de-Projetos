@@ -4,7 +4,7 @@ const UserController = require('./user');
 
 class ProjectController {
 
-    async createProjects(name, description, autorId, transaction) {
+    async createProjects(name, description, autorId) {
         this.validateMandatoryFields({ name, description, autorId });
 
         await UserController.findUser(Number(autorId));
@@ -13,7 +13,7 @@ class ProjectController {
             name,
             description,
             autorId
-        }, { transaction });
+        });
 
         return projectValue;
     }

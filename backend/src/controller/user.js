@@ -2,7 +2,7 @@ const user = require('../model/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const SECRET_KEY = 'segundaavaliacao'
+const SECRET_KEY = 'batata'
 const SALT_VALUE = 10
 
 class UserController {
@@ -76,15 +76,13 @@ class UserController {
             throw new Error('[1] username or password is invalid.')
         }
 
-        const passwordValidate = bcrypt.compare(password, userValue.password)
+        const passwordValidate = await bcrypt.compare(password, userValue.password)
         if (passwordValidate === undefined) {
             throw new Error('[2] username or password is invalid.')
         }
 
         return jwt.sign({ id: userValue.id }, SECRET_KEY, { expiresIn: 60 * 60 })
     }
-
-   
 }
 
 module.exports = new UserController()

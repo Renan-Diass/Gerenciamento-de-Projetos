@@ -8,8 +8,9 @@ class AuthMiddleware {
             if (!token) {
                 throw new Error(' Token not found');
             }
-
+            console.log('Antes payload')
             const payload = jwt.verify(token, JWT_SECRET_KEY);
+            console.log('Depois payload', payload)
 
             if (!payload) {
                 throw new Error('invalid token');
@@ -19,6 +20,7 @@ class AuthMiddleware {
             return res.status(400).send({ error: error.message })
         }
     }
+
 }
 
 module.exports = AuthMiddleware

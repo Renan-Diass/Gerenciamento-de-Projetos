@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import api from '../api/api';
-
 // 4 - Adicionar Provider, isTokenValid e getRole
 const isTokenValid = (token) => {
   try {
@@ -32,9 +30,8 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
-    const storedToken = localStorage.getItem('token');
 
+    const storedToken = localStorage.getItem('token');
 
     if (storedToken && isTokenValid(storedToken)) {
       setToken(storedToken);
@@ -51,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     setToken(newToken);
     setRole(getRole(newToken));
     localStorage.setItem('token', newToken);
+
   };
 
   const logout = () => {
