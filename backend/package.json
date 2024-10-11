@@ -1,5 +1,5 @@
 {
-  "name": "segunda-avaliacao",
+  "name": "back-gabriel",
   "version": "1.0.0",
   "description": "Segunda avaliação",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "nodemon ./src/index.js",
     "test": "jest --coverage"
   },
-  "author": "Ruhan e Renan",
+  "author": "Ruhan, Renan, Guilherme e Ana",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
